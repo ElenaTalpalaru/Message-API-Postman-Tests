@@ -1,0 +1,279 @@
+{
+	"info": {
+		"_postman_id": "47655e4d-04af-433e-ac12-db7d09fa08cd",
+		"name": "MessageApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\nID: 1,\r\nUserName : \"Piersicuta\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "www.azurewebsites.gogu.com/api/User",
+							"host": [
+								"www",
+								"azurewebsites",
+								"gogu",
+								"com"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Post user incorrect ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
+									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\nID: \"gelu\",\r\nUserName : \"Piersicuta1\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "www.azurewebsites.gogu.com/api/User",
+							"host": [
+								"www",
+								"azurewebsites",
+								"gogu",
+								"com"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post user incorrect Username",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
+									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\nID: 2,\r\nUserName : \"abc\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "www.azurewebsites.gogu.com/api/User",
+							"host": [
+								"www",
+								"azurewebsites",
+								"gogu",
+								"com"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post user incorrect Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
+									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\nID: 3,\r\nUserName : \"Piersicuta2\",\r\nPassword: \"123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "www.azurewebsites.gogu.com/api/User",
+							"host": [
+								"www",
+								"azurewebsites",
+								"gogu",
+								"com"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post user incorrect email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
+									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\nID: 4,\r\nUserName : \"Piersicuta3\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta\",\r\nAcceptedTerms: true\r\n}\r\n"
+						},
+						"url": {
+							"raw": "www.azurewebsites.gogu.com/api/User",
+							"host": [
+								"www",
+								"azurewebsites",
+								"gogu",
+								"com"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post user incorrect accepted terms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
+									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\nID: 5,\r\nUserName : \"Piersicuta4\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: \"gdja\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "www.azurewebsites.gogu.com/api/User",
+							"host": [
+								"www",
+								"azurewebsites",
+								"gogu",
+								"com"
+							],
+							"path": [
+								"api",
+								"User"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
