@@ -9,15 +9,15 @@
 			"name": "Post User",
 			"item": [
 				{
-					"name": "Create User",
+					"name": "Create User Happy Path",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
 									"});",
 									""
 								],
@@ -30,25 +30,30 @@
 						"header": [
 							{
 								"key": "Content-Type",
+								"name": "Content-Type",
 								"value": "application/json",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\nID: 1,\r\nUserName : \"Piersicuta\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+							"raw": "{\r\n\"UserName\" : \"Piersica\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "www.azurewebsites.gogu.com/api/User",
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
 							"host": [
-								"www",
-								"azurewebsites",
-								"gogu",
-								"com"
+								"localhost"
 							],
+							"port": "44383",
 							"path": [
 								"api",
-								"User"
+								"Users"
 							]
 						},
 						"description": "Happy Path"
@@ -56,20 +61,17 @@
 					"response": []
 				},
 				{
-					"name": "Post user incorrect ID",
+					"name": "Post User username less than 8 char",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});",
-									"",
-									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
-									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
-									"});"
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -77,42 +79,51 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\nID: \"gelu\",\r\nUserName : \"Piersicuta1\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+							"raw": "{\r\n\"UserName\" : \"Pi\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "www.azurewebsites.gogu.com/api/User",
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
 							"host": [
-								"www",
-								"azurewebsites",
-								"gogu",
-								"com"
+								"localhost"
 							],
+							"port": "44383",
 							"path": [
 								"api",
-								"User"
+								"Users"
 							]
-						}
+						},
+						"description": "Happy Path"
 					},
 					"response": []
 				},
 				{
-					"name": "Post user incorrect Username",
+					"name": "Post username not string",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});",
-									"",
-									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
-									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
-									"});"
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -120,43 +131,51 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\nID: 2,\r\nUserName : \"abc\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+							"raw": "{\r\n\"UserName\" : \"123\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "www.azurewebsites.gogu.com/api/User",
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
 							"host": [
-								"www",
-								"azurewebsites",
-								"gogu",
-								"com"
+								"localhost"
 							],
+							"port": "44383",
 							"path": [
 								"api",
-								"User"
+								"Users"
 							]
-						}
+						},
+						"description": "Happy Path"
 					},
 					"response": []
 				},
 				{
-					"name": "Post user incorrect Password",
+					"name": "Post Username empty",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});",
-									"",
-									"",
-									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
-									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
-									"});"
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -164,42 +183,51 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\nID: 3,\r\nUserName : \"Piersicuta2\",\r\nPassword: \"123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: true\r\n}\r\n"
+							"raw": "{\r\n\"UserName\" : \"\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "www.azurewebsites.gogu.com/api/User",
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
 							"host": [
-								"www",
-								"azurewebsites",
-								"gogu",
-								"com"
+								"localhost"
 							],
+							"port": "44383",
 							"path": [
 								"api",
-								"User"
+								"Users"
 							]
-						}
+						},
+						"description": "Happy Path"
 					},
 					"response": []
 				},
 				{
-					"name": "Post user incorrect email",
+					"name": "Post empty password",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});",
-									"",
-									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
-									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
-									"});"
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -207,42 +235,51 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\nID: 4,\r\nUserName : \"Piersicuta3\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta\",\r\nAcceptedTerms: true\r\n}\r\n"
+							"raw": "{\r\n\"UserName\" : \"Bubulina\",\r\n\"Password\": \"\"\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "www.azurewebsites.gogu.com/api/User",
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
 							"host": [
-								"www",
-								"azurewebsites",
-								"gogu",
-								"com"
+								"localhost"
 							],
+							"port": "44383",
 							"path": [
 								"api",
-								"User"
+								"Users"
 							]
-						}
+						},
+						"description": "Happy Path"
 					},
 					"response": []
 				},
 				{
-					"name": "Post user incorrect accepted terms",
+					"name": "Post using password with less that 8 characters",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "47bcb2f3-e40f-4021-a318-979ddd8b6208",
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {",
-									"    pm.response.to.have.status(404);",
-									"});",
-									"",
-									"pm.test(\"Body does not contain \\\"Is not available\\\"\", function () {",
-									"    pm.expect(!pm.response.text()).to.include(\"Is not available\");",
-									"});"
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -250,29 +287,373 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\nID: 5,\r\nUserName : \"Piersicuta4\",\r\nPassword: \"Parola123\",\r\nEmail: \"piersicuta@gmail.com\",\r\nAcceptedTerms: \"gdja\"\r\n}\r\n"
+							"raw": "{\r\n\"UserName\" : \"Piersicuta\",\r\n\"Password\": \"p\",\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
-							"raw": "www.azurewebsites.gogu.com/api/User",
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
 							"host": [
-								"www",
-								"azurewebsites",
-								"gogu",
-								"com"
+								"localhost"
 							],
+							"port": "44383",
 							"path": [
 								"api",
-								"User"
+								"Users"
 							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Post using password not string",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"UserName\" : \"Piersicuta\",\r\n\"Password\": \"1234\",\r\n\"Email\": \"piersicuta@gmail.com\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44383",
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Post user with invalid email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"UserName\" : \"Craciunita\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"piersicutah\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44383",
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Post user not string email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"UserName\" : \"Craciunita\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"1234567\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44383",
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Post user email empty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"UserName\" : \"Craciunita\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"\",\r\n\"AcceptedTerms\": \"true\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44383",
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Accepted terms false",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"UserName\" : \"Craciunita\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"Craciunita@gmail.com\",\r\n\"AcceptedTerms\": \"false\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44383",
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Happy Path"
+					},
+					"response": []
+				},
+				{
+					"name": "Accepted terms invalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "959714e8-b399-48c9-af5f-b56a6557adb5",
+								"exec": [
+									"pm.test(\"Status code is not 201\", function () {\r",
+									"    pm.response.to.not.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"UserName\" : \"Craciunita\",\r\n\"Password\": \"Password\",\r\n\"Email\": \"Craciunita@gmail.com\",\r\n\"AcceptedTerms\": \"12fd\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44383/api/Users",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44383",
+							"path": [
+								"api",
+								"Users"
+							]
+						},
+						"description": "Happy Path"
 					},
 					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Get user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44383/api/Users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44383",
+					"path": [
+						"api",
+						"Users"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
